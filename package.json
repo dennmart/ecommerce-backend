@@ -4,6 +4,7 @@
   "description": "Sample ecommerce backend for Artillery.io testing",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "migrate": "node-pg-migrate"
   },
   "author": "Dennis Martinez",
