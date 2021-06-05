@@ -27,7 +27,7 @@ scenarios:
           json:
             kw: "{{ keyword }}"
           capture:
-            - json: "$.results[0].id"
+            - json: "$.[0].id"
               as: "productId"
       - get:
           url: "/products/{{ productId }}/details"
