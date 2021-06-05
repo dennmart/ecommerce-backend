@@ -17,7 +17,7 @@ config:
       - "keyword"
   ensure:
     p99: 300
-    maxErrorRate: 0.5
+    maxErrorRate: 1
 
 scenarios:
   - name: "Search and add to cart"
