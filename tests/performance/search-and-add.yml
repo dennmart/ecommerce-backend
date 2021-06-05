@@ -15,6 +15,9 @@ config:
     path: "keywords.csv"
     fields:
       - "keyword"
+  ensure:
+    p99: 300
+    maxErrorRate: 0.5
 
 scenarios:
   - name: "Search and add to cart"
