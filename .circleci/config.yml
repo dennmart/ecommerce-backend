@@ -1,0 +1,11 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: artilleryio/artillery:1.7.2
+    steps:
+      - checkout
+      - run:
+          name: Execute load tests
+          command: /home/node/artillery/bin/artillery run tests/performance/search-and-add.yml
