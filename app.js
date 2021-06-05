@@ -16,14 +16,19 @@ app.get("/products", async (_, res) => {
 app.get("/products/:id/details", async (req, res) => {
   const { id } = req.params;
   const { rows } = await db.query("SELECT * FROM products WHERE id = $1", [id]);
-  res.send(rows[0]);
+
+  if (rows.length === 0) {
+    res.status(404).send({ error: "Product not found" });
+  } else {
+    res.send(rows[0]);
+  }
 });
 
 app.post("/search", async (req, res) => {
-  const { query } = req.body;
+  const { kw } = req.body;
   const { rows } = await db.query(
     "SELECT * FROM products WHERE name ILIKE $1",
-    ["%" + query + "%"]
+    ["%" + kw + "%"]
   );
   res.send(rows);
 });
@@ -34,10 +39,14 @@ app.post("/cart", async (req, res) => {
     productId,
   ]);
 
-  // Don't do anything, just simulate a bit of latency here.
-  setTimeout(() => {
-    res.send(rows[0]).status(201);
-  }, Math.ceil(Math.random() * 200));
+  if (rows.length === 0) {
+    res.status(404).send({ error: "Product not found" });
+  } else {
+    // Don't do anything, just simulate a bit of latency here.
+    setTimeout(() => {
+      res.status(201).send([rows[0]]);
+    }, Math.ceil(Math.random() * 100));
+  }
 });
 
 app.listen(port, () => {
