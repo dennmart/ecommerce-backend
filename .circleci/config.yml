@@ -8,6 +8,10 @@ jobs:
       - checkout
 
       - run:
+          name: Make reports directory
+          command: mkdir reports
+
+      - run:
           name: Execute load tests
           command: /home/node/artillery/bin/artillery run --output reports/report.json tests/performance/search-and-add.yml
 
